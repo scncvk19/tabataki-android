@@ -1,14 +1,15 @@
 package com.example.tabataki
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
+import org.json.JSONArray
 
 class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
     val allExercises: Flow<List<Exercise>> = exerciseDao.getAllExercises()
 
-    fun getExercisesByCategory(category: String): Flow<List<Exercise>> {
-        return exerciseDao.getExercisesByCategory(category)
-    }
+    fun getExercisesByCategory(category: String): Flow<List<Exercise>> =
+        exerciseDao.getExercisesByCategory(category)
 
     suspend fun insert(exercise: Exercise) {
         exerciseDao.insertExercise(exercise)
@@ -26,37 +27,35 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
         exerciseDao.deleteExercisesByCategory(category)
     }
 
-    suspend fun populateInitialDataIfNeeded(currentCount: Int, context: android.content.Context, lang: Language) {
-        val prefs = context.getSharedPreferences("tabataki_exercise_prefs", android.content.Context.MODE_PRIVATE)
-        val isPopulated = prefs.getBoolean("is_initial_data_populated", false)
-        
-        // Only run if database is empty AND we haven't populated it before
-        if (currentCount > 0 || isPopulated) {
-            if (currentCount > 0 && !isPopulated) {
-                // If it has data but flag wasn't set, set the flag
-                prefs.edit().putBoolean("is_initial_data_populated", true).apply()
-            }
-            return
-        }
-        
-        try {
-            val jsonString = context.assets.open("exercises.json").bufferedReader().use { it.readText() }
-            val jsonArray = org.json.JSONArray(jsonString)
-            val initialExercises = mutableListOf<Exercise>()
-            
-            for (i in 0 until jsonArray.length()) {
-                val obj = jsonArray.getJSONObject(i)
-                val category = obj.getString("category")
-                val name = obj.getString("name")
-                val desc = obj.getString("description")
-                val focus = obj.getString("focus")
+    suspend fun populateInitialDataIfNeeded(
+        currentCount: Int,
+        context: Context,
+        lang: Language
+    ) {
+        if (currentCount > 0) return
 
-                initialExercises.add(Exercise(name = name, category = category, description = desc, focus = focus))
+        try {
+            val jsonString = context.assets
+                .open("exercises.json")
+                .bufferedReader()
+                .use { it.readText() }
+
+            val jsonArray = JSONArray(jsonString)
+            val initialExercises = buildList {
+                for (i in 0 until jsonArray.length()) {
+                    val obj = jsonArray.getJSONObject(i)
+                    add(
+                        Exercise(
+                            name = obj.getString("name"),
+                            category = obj.getString("category"),
+                            description = obj.getString("description"),
+                            focus = obj.getString("focus")
+                        )
+                    )
+                }
             }
-            
+
             exerciseDao.insertExercises(initialExercises)
-            // Mark as populated so it never runs again even if database is emptied
-            prefs.edit().putBoolean("is_initial_data_populated", true).apply()
         } catch (e: Exception) {
             e.printStackTrace()
         }
