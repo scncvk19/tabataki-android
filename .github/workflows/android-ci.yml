@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,13 +16,29 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
           cache: gradle
+
       - name: Prepare Gradle wrapper
         run: chmod +x gradlew
+
       - name: Run tests and build debug APK
         run: ./gradlew testDebugUnitTest assembleDebug --stacktrace
+
+      - name: Prepare APK for download
+        if: github.event_name != 'pull_request'
+        run: cp app/build/outputs/apk/debug/app-debug.apk Tabataki-debug.apk
+
+      - name: Upload APK
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tabataki-Android-debug
+          path: Tabataki-debug.apk
+          if-no-files-found: error
+          retention-days: 30
