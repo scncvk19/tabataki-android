@@ -1,3 +1,14 @@
+val releaseKeystoreFile = System.getenv("TABATAKI_KEYSTORE_FILE")
+val releaseKeystorePassword = System.getenv("TABATAKI_KEYSTORE_PASSWORD")
+val releaseKeyAlias = System.getenv("TABATAKI_KEY_ALIAS")
+val releaseKeyPassword = System.getenv("TABATAKI_KEY_PASSWORD")
+val releaseSigningReady = listOf(
+    releaseKeystoreFile,
+    releaseKeystorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword
+).all { !it.isNullOrBlank() }
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -13,15 +24,29 @@ android {
         applicationId = "io.github.scncvk19.tabataki"
         minSdk = 24
         targetSdk = 35
-        versionCode = 10
-        versionName = "1.0.9"
+        versionCode = (System.getenv("TABATAKI_VERSION_CODE") ?: "10").toInt()
+        versionName = System.getenv("TABATAKI_VERSION_NAME") ?: "1.0.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        if (releaseSigningReady) {
+            create("release") {
+                storeFile = file(releaseKeystoreFile!!)
+                storePassword = releaseKeystorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (releaseSigningReady) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -41,7 +66,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
