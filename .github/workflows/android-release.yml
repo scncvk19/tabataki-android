@@ -30,7 +30,9 @@ jobs:
         shell: bash
         run: |
           VERSION_NAME="${GITHUB_REF_NAME#v}"
-          VERSION_CODE="${GITHUB_RUN_NUMBER}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NAME"
+          test -n "$MAJOR" && test -n "$MINOR" && test -n "$PATCH" || { echo "Tag must use vMAJOR.MINOR.PATCH, for example v1.0.10"; exit 1; }
+          VERSION_CODE=$((10#$MAJOR * 10000 + 10#$MINOR * 100 + 10#$PATCH))
           echo "version_name=$VERSION_NAME" >> "$GITHUB_OUTPUT"
           echo "version_code=$VERSION_CODE" >> "$GITHUB_OUTPUT"
 
