@@ -1,6 +1,6 @@
 # Tabataki
 
-Tabataki ist eine Android-App für Intervall- und Tabata-Training. Ich habe sie als KI-unterstütztes Lernprojekt entwickelt, um praktische Erfahrung mit Kotlin, Jetpack Compose, Android-Entwicklung und lokaler Datenspeicherung zu sammeln.
+Tabataki ist eine Android-App für Intervall- und Tabata-Training. Ich habe sie als Lernprojekt entwickelt, um praktische Erfahrung mit Kotlin, Jetpack Compose, Android-Entwicklung und lokaler Datenspeicherung zu sammeln.
 
 Das Projekt befindet sich weiterhin in Entwicklung. Über GitHub Releases werden signierte APK-Dateien für Tests und die direkte Installation auf Android-Geräten bereitgestellt.
 
@@ -47,10 +47,6 @@ Das Android-Projekt liegt direkt in der Repository-Wurzel.
 Die Trainingsdaten werden lokal auf dem Gerät gespeichert. Die App benötigt kein Benutzerkonto für die lokale Nutzung.
 
 Vor einer breiteren Veröffentlichung werden Berechtigungen, Backup-Verhalten und externe Verbindungen weiterhin überprüft.
-
-## Transparenz
-
-Das Projekt wurde von mir mit Unterstützung generativer KI entwickelt. Architektur, Funktionsauswahl, Tests und weitere Überarbeitung erfolgen im Rahmen meines persönlichen Lernprozesses.
 
 ## Status
 
