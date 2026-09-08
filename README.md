@@ -15,16 +15,16 @@ Die App befindet sich weiterhin in Entwicklung, ist aber bereits als signierte A
 
 ## Download
 
-**Aktuelle Version:** `v1.0.14`  
-**APK:** `Tabataki-1.0.14.apk`
+**Aktuelle Version:** `v1.0.15`  
+**APK:** `Tabataki-1.0.15.apk`
 
 - [Aktuellen Release öffnen](https://github.com/scncvk19/tabataki-android/releases/latest)
-- [Tabataki-1.0.14.apk direkt herunterladen](https://github.com/scncvk19/tabataki-android/releases/download/v1.0.14/Tabataki-1.0.14.apk)
+- [Tabataki-1.0.15.apk direkt herunterladen](https://github.com/scncvk19/tabataki-android/releases/download/v1.0.15/Tabataki-1.0.15.apk)
 
 **SHA-256:**
 
 ```text
-983ac6c3ee164fd618921ce5dad298d641f1546da9780847be2773545041617d
+f4e17894427e1be314f029ca92ed1a76e5f9b4f3a74914c2fb10932ddf12e388
 ```
 
 > Tabataki wird derzeit außerhalb des Google Play Stores über GitHub Releases verteilt. Je nach Android- und Play-Protect-Einstellungen kann die Installation einer APK aus externen Quellen eine zusätzliche Bestätigung erfordern.
@@ -120,16 +120,16 @@ The app is still under development, but a signed Android APK is already availabl
 
 ## Download
 
-**Current version:** `v1.0.14`  
-**APK:** `Tabataki-1.0.14.apk`
+**Current version:** `v1.0.15`  
+**APK:** `Tabataki-1.0.15.apk`
 
 - [Open the latest release](https://github.com/scncvk19/tabataki-android/releases/latest)
-- [Download Tabataki-1.0.14.apk directly](https://github.com/scncvk19/tabataki-android/releases/download/v1.0.14/Tabataki-1.0.14.apk)
+- [Download Tabataki-1.0.15.apk directly](https://github.com/scncvk19/tabataki-android/releases/download/v1.0.15/Tabataki-1.0.15.apk)
 
 **SHA-256:**
 
 ```text
-983ac6c3ee164fd618921ce5dad298d641f1546da9780847be2773545041617d
+f4e17894427e1be314f029ca92ed1a76e5f9b4f3a74914c2fb10932ddf12e388
 ```
 
 > Tabataki is currently distributed outside the Google Play Store through GitHub Releases. Depending on Android and Play Protect settings, installing an APK from an external source may require additional confirmation.
