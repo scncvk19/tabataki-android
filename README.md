@@ -44,9 +44,11 @@ Das Android-Projekt liegt direkt in der Repository-Wurzel.
 
 ## Datenschutz
 
-Die Trainingsdaten werden lokal auf dem Gerät gespeichert. Die App benötigt kein Benutzerkonto für die lokale Nutzung.
+Tabataki benötigt für die lokale Nutzung kein Benutzerkonto und fordert derzeit keine zusätzlichen Android-Berechtigungen wie Standort, Kamera, Mikrofon oder Kontakte an.
 
-Vor einer breiteren Veröffentlichung werden Berechtigungen, Backup-Verhalten und externe Verbindungen weiterhin überprüft.
+Trainingsdaten und Einstellungen werden von der App lokal auf dem Gerät gespeichert. Tabataki verwendet derzeit keinen eigenen Server und überträgt diese Daten nicht an einen eigenen Online-Dienst.
+
+Android-Cloud-Backups und die Übernahme der App-Daten über die von Android bereitgestellten Backup-/Geräteübertragungsmechanismen sind für Tabataki bewusst deaktiviert bzw. ausgeschlossen.
 
 ## Status
 
