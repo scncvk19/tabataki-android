@@ -97,8 +97,7 @@ private fun TabatakiApp() {
             withContext(kotlinx.coroutines.Dispatchers.IO) {
                 exerciseRepo.populateInitialDataIfNeeded(
                     currentCount = 0,
-                    context = context.applicationContext,
-                    lang = lang
+                    context = context.applicationContext
                 )
             }
         }
