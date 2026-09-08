@@ -1,52 +1,69 @@
-# Tabataki Android
+# Tabataki
 
-Tabataki ist eine schlanke Android-App für Tabata- und Intervalltraining. Sie kombiniert einen manuellen Timer mit Trainingstagen, Routinen und einer Übungsbibliothek und ist als persönliches Lern- und Community-Projekt gedacht.
+Tabataki ist eine Android-App für Intervall- und Tabata-Training. Ich habe sie als Lernprojekt entwickelt, um praktische Erfahrung mit Kotlin, Jetpack Compose, Android-Entwicklung und lokaler Datenspeicherung zu sammeln.
+
+Das Projekt befindet sich weiterhin in Entwicklung. Über GitHub Releases werden signierte APK-Dateien für Tests und die direkte Installation auf Android-Geräten bereitgestellt.
 
 ## Funktionen
 
-- Tabata-/Intervalltimer mit Arbeitszeit, Pause und Runden
+- konfigurierbarer Intervall-Timer
 - Trainingstage und Routinen
-- Übungsbibliothek mit eigenen Übungen und Kategorien
-- Backup und Wiederherstellung der eigenen Routinen als JSON
-- Mehrsprachige Oberfläche
-- Akustisches Feedback während des Timers
-- Lokale Nutzung ohne Benutzerkonto
+- eigener Übungskatalog
+- lokale Speicherung ohne Benutzerkonto
+- akustische Signale bei Phasenwechseln
+- mehrsprachige Benutzeroberfläche
+- dunkles, für das Training optimiertes Design
+- eigenes Tabataki-App-Icon
 
-## Datenschutz
+## Technik
 
-Für die lokale Nutzung ist kein Benutzerkonto erforderlich. Tabataki fordert derzeit keine zusätzlichen Android-Berechtigungen wie Standort, Kamera, Mikrofon oder Kontakte an.
-
-Trainingsdaten und Einstellungen werden von der App lokal auf dem Gerät gespeichert. Tabataki verwendet derzeit keinen eigenen Server und übermittelt diese Daten nicht an einen eigenen Online-Dienst. Android-Cloud-Backups sowie Android-Backup- und Geräteübertragungsmechanismen für App-Daten sind bewusst deaktiviert bzw. ausgeschlossen.
-
-## Entwicklung
-
-Voraussetzungen:
-
-- JDK 17
-- Android SDK passend zu `compileSdk`
-
-Projekt lokal prüfen:
-
-```powershell
-.\gradlew.bat testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest
-```
-
-Die Debug-APK liegt anschließend unter:
-
-```text
-app\build\outputs\apk\debug\app-debug.apk
-```
-
-GitHub Actions führt dieselben Prüfungen bei Pull Requests gegen `main` automatisch aus.
+- Kotlin
+- Jetpack Compose
+- Material 3
+- Room
+- DataStore
+- Gradle
+- GitHub Actions für Build und Release
 
 ## Installation
 
-Veröffentlichte APKs werden über GitHub Releases bereitgestellt. Android kann bei einer manuellen APK-Installation je nach Geräte- und Sicherheitseinstellungen eine Bestätigung für Installationen aus unbekannten Quellen verlangen.
+Die aktuelle APK kann über den Bereich **Releases** dieses Repositories heruntergeladen werden.
+
+> Hinweis: Tabataki befindet sich noch in Entwicklung. Releases dienen derzeit vor allem zum Testen der App auf echten Android-Geräten.
+
+Je nach Android- und Play-Protect-Einstellungen kann die Installation von APK-Dateien außerhalb des Google Play Stores eingeschränkt oder zusätzlich bestätigt werden müssen.
+
+## Lokal entwickeln
+
+1. Repository klonen.
+2. Das Repository in Android Studio öffnen.
+3. Gradle-Abhängigkeiten synchronisieren.
+4. Die App auf einem Emulator oder Android-Gerät starten.
+
+Das Android-Projekt liegt direkt in der Repository-Wurzel.
+
+## Datenschutz
+
+Tabataki benötigt für die lokale Nutzung kein Benutzerkonto und fordert derzeit keine zusätzlichen Android-Berechtigungen wie Standort, Kamera, Mikrofon oder Kontakte an.
+
+Trainingsdaten und Einstellungen werden von der App lokal auf dem Gerät gespeichert. Tabataki verwendet derzeit keinen eigenen Server und überträgt diese Daten nicht an einen eigenen Online-Dienst.
+
+Android-Cloud-Backups und die Übernahme der App-Daten über die von Android bereitgestellten Backup-/Geräteübertragungsmechanismen sind für Tabataki bewusst deaktiviert bzw. ausgeschlossen.
+
+## Status
+
+**In Entwicklung.**
+
+Die App ist bereits als installierbare Android-APK verfügbar, sollte aktuell aber noch als Test- bzw. Entwicklungsversion betrachtet werden.
 
 ## Feedback
 
-Fehler, Ideen und Verbesserungsvorschläge können über die GitHub Issues des Projekts gemeldet werden.
+**Für Feedback wäre ich sehr dankbar.**
 
-## Lizenz / Nutzung
+Fehler, Verbesserungsvorschläge und Ideen können gerne über die [GitHub Issues](https://github.com/scncvk19/tabataki-android/issues) eingereicht werden.
 
-Der Quellcode ist öffentlich einsehbar, sofern das Repository öffentlich geschaltet wird. Daraus folgt nicht automatisch eine Open-Source-Lizenz. Maßgeblich sind die Hinweise in `COPYRIGHT.md` und `THIRD_PARTY_NOTICES.md`.
+Gerade weil Tabataki ein Lernprojekt ist, hilft mir konstruktives Feedback dabei, die App technisch und funktional weiterzuentwickeln.
+
+## Nutzungsrechte
+
+Der Quellcode ist zur Ansicht und Bewertung veröffentlicht. Es wird keine Erlaubnis zur Übernahme, Veränderung oder Weiterverteilung erteilt. Einzelheiten stehen in [COPYRIGHT.md](COPYRIGHT.md).
