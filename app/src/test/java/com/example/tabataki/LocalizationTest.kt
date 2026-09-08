@@ -13,4 +13,9 @@ class LocalizationTest {
     fun fallsBackToEnglishWhenTranslationIsMissing() {
         assertEquals("Delete Category?", AppStrings.get(Language.RU, "del_cat_title"))
     }
+
+    @Test
+    fun returnsBlankForUnknownKey() {
+        assertEquals(" ", AppStrings.get(Language.EN, "unknown_key"))
+    }
 }
