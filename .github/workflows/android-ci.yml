@@ -27,8 +27,8 @@ jobs:
       - name: Prepare Gradle wrapper
         run: chmod +x gradlew
 
-      - name: Run tests and build debug APK
-        run: ./gradlew testDebugUnitTest assembleDebug --stacktrace
+      - name: Run tests, lint and build debug APKs
+        run: ./gradlew testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest --stacktrace
 
       - name: Prepare APK for download
         if: github.event_name != 'pull_request'

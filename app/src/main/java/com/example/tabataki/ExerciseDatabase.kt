@@ -1,7 +1,17 @@
 package com.example.tabataki
 
 import android.content.Context
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Delete
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "exercises")
@@ -19,15 +29,9 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercises")
     fun getAllExercises(): Flow<List<Exercise>>
 
-    @Query("SELECT * FROM exercises WHERE category = :category")
-    fun getExercisesByCategory(category: String): Flow<List<Exercise>>
-    
-    @Query("SELECT * FROM exercises WHERE id = :id")
-    suspend fun getExerciseById(id: Int): Exercise?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercises(exercises: List<Exercise>)
-    
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercise(exercise: Exercise)
 
@@ -56,8 +60,8 @@ abstract class TabatakiDatabase : RoomDatabase() {
                     TabatakiDatabase::class.java,
                     "tabataki_database"
                 )
-                .fallbackToDestructiveMigration()
-                .build()
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -1,14 +1,11 @@
 package com.example.tabataki
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
 
 class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
     val allExercises: Flow<List<Exercise>> = exerciseDao.getAllExercises()
-
-    fun getExercisesByCategory(category: String): Flow<List<Exercise>> {
-        return exerciseDao.getExercisesByCategory(category)
-    }
 
     suspend fun insert(exercise: Exercise) {
         exerciseDao.insertExercise(exercise)
@@ -28,8 +25,7 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
     suspend fun populateInitialDataIfNeeded(
         currentCount: Int,
-        context: android.content.Context,
-        lang: Language
+        context: Context
     ) {
         if (currentCount > 0) return
 

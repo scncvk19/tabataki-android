@@ -17,20 +17,20 @@ data class WorkoutDay(val id: String, var name: String, val routines: MutableLis
 
 class RoutineRepository(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("tabataki_routines", Context.MODE_PRIVATE)
-    private val KEY_DAYS = "workout_days_json"
+    private val daysKey = "workout_days_json"
 
-    private val _daysFlow = kotlinx.coroutines.flow.MutableStateFlow<kotlin.collections.List<WorkoutDay>>(emptyList())
-    val daysFlow: kotlinx.coroutines.flow.StateFlow<kotlin.collections.List<WorkoutDay>> = _daysFlow
+    private val _daysFlow = MutableStateFlow<List<WorkoutDay>>(emptyList())
+    val daysFlow: StateFlow<List<WorkoutDay>> = _daysFlow
 
     init {
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             _daysFlow.value = getDaysSync()
         }
     }
 
     private fun getDaysSync(): MutableList<WorkoutDay> {
         val days = mutableListOf<WorkoutDay>()
-        val data = prefs.getString(KEY_DAYS, "[]") ?: "[]"
+        val data = prefs.getString(daysKey, "[]") ?: "[]"
         try {
             val jsonArray = JSONArray(data)
             for (i in 0 until jsonArray.length()) {
@@ -63,36 +63,36 @@ class RoutineRepository(context: Context) {
         return _daysFlow.value.toMutableList()
     }
 
-    fun saveDays(days: kotlin.collections.List<WorkoutDay>) {
+    fun saveDays(days: List<WorkoutDay>) {
         _daysFlow.value = days.toList()
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val jsonArray = JSONArray()
-        for (day in days) {
-            val dayObj = JSONObject()
-            dayObj.put("id", day.id)
-            dayObj.put("name", day.name)
-            val rArr = JSONArray()
-            for (r in day.routines) {
-                val rObj = JSONObject()
-                rObj.put("id", r.id)
-                rObj.put("name", r.name)
-                rObj.put("work", r.work)
-                rObj.put("rest", r.rest)
-                rObj.put("rounds", r.rounds)
-                rArr.put(rObj)
+            for (day in days) {
+                val dayObj = JSONObject()
+                dayObj.put("id", day.id)
+                dayObj.put("name", day.name)
+                val rArr = JSONArray()
+                for (r in day.routines) {
+                    val rObj = JSONObject()
+                    rObj.put("id", r.id)
+                    rObj.put("name", r.name)
+                    rObj.put("work", r.work)
+                    rObj.put("rest", r.rest)
+                    rObj.put("rounds", r.rounds)
+                    rArr.put(rObj)
+                }
+                dayObj.put("routines", rArr)
+                jsonArray.put(dayObj)
             }
-            dayObj.put("routines", rArr)
-            jsonArray.put(dayObj)
-        }
-        prefs.edit().putString(KEY_DAYS, jsonArray.toString()).apply()
+            prefs.edit().putString(daysKey, jsonArray.toString()).apply()
         }
     }
 
-    fun exportToJson(customExercises: kotlin.collections.List<Exercise>): String {
+    fun exportToJson(customExercises: List<Exercise>): String {
         val root = JSONObject()
-        val daysJson = prefs.getString(KEY_DAYS, "[]") ?: "[]"
+        val daysJson = prefs.getString(daysKey, "[]") ?: "[]"
         root.put("days", JSONArray(daysJson))
-        
+
         val exArray = JSONArray()
         for (ex in customExercises) {
             val exObj = JSONObject()
@@ -105,16 +105,16 @@ class RoutineRepository(context: Context) {
         root.put("custom_exercises", exArray)
         return root.toString()
     }
-    
-    fun importFromJson(jsonString: String): kotlin.collections.List<Exercise> {
+
+    fun importFromJson(jsonString: String): List<Exercise> {
         val importedExercises = mutableListOf<Exercise>()
         try {
             val trimmed = jsonString.trim()
             if (trimmed.startsWith("{")) {
                 val root = JSONObject(trimmed)
                 val daysArr = root.optJSONArray("days") ?: JSONArray()
-                prefs.edit().putString(KEY_DAYS, daysArr.toString()).apply()
-                
+                prefs.edit().putString(daysKey, daysArr.toString()).apply()
+
                 val exArr = root.optJSONArray("custom_exercises") ?: JSONArray()
                 for (i in 0 until exArr.length()) {
                     val exObj = exArr.getJSONObject(i)
@@ -131,7 +131,7 @@ class RoutineRepository(context: Context) {
             } else {
                 // Fallback to old pure-days array
                 val arr = JSONArray(trimmed)
-                prefs.edit().putString(KEY_DAYS, arr.toString()).apply()
+                prefs.edit().putString(daysKey, arr.toString()).apply()
             }
         } catch (e: Exception) {
             e.printStackTrace()
