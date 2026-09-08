@@ -7,9 +7,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class ApplicationIdInstrumentedTest {
     @Test
-    fun useAppContext() {
+    fun applicationIdMatchesReleasePackage() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("io.github.scncvk19.tabataki", appContext.packageName)
     }
