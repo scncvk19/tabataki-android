@@ -17,7 +17,7 @@ data class WorkoutDay(val id: String, var name: String, val routines: MutableLis
 
 class RoutineRepository(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("tabataki_routines", Context.MODE_PRIVATE)
-    private val KEY_DAYS = "workout_days_json"
+    private val daysKey = "workout_days_json"
 
     private val _daysFlow = MutableStateFlow<List<WorkoutDay>>(emptyList())
     val daysFlow: StateFlow<List<WorkoutDay>> = _daysFlow
@@ -30,7 +30,7 @@ class RoutineRepository(context: Context) {
 
     private fun getDaysSync(): MutableList<WorkoutDay> {
         val days = mutableListOf<WorkoutDay>()
-        val data = prefs.getString(KEY_DAYS, "[]") ?: "[]"
+        val data = prefs.getString(daysKey, "[]") ?: "[]"
         try {
             val jsonArray = JSONArray(data)
             for (i in 0 until jsonArray.length()) {
@@ -84,13 +84,13 @@ class RoutineRepository(context: Context) {
                 dayObj.put("routines", rArr)
                 jsonArray.put(dayObj)
             }
-            prefs.edit().putString(KEY_DAYS, jsonArray.toString()).apply()
+            prefs.edit().putString(daysKey, jsonArray.toString()).apply()
         }
     }
 
     fun exportToJson(customExercises: List<Exercise>): String {
         val root = JSONObject()
-        val daysJson = prefs.getString(KEY_DAYS, "[]") ?: "[]"
+        val daysJson = prefs.getString(daysKey, "[]") ?: "[]"
         root.put("days", JSONArray(daysJson))
 
         val exArray = JSONArray()
@@ -113,7 +113,7 @@ class RoutineRepository(context: Context) {
             if (trimmed.startsWith("{")) {
                 val root = JSONObject(trimmed)
                 val daysArr = root.optJSONArray("days") ?: JSONArray()
-                prefs.edit().putString(KEY_DAYS, daysArr.toString()).apply()
+                prefs.edit().putString(daysKey, daysArr.toString()).apply()
 
                 val exArr = root.optJSONArray("custom_exercises") ?: JSONArray()
                 for (i in 0 until exArr.length()) {
@@ -131,7 +131,7 @@ class RoutineRepository(context: Context) {
             } else {
                 // Fallback to old pure-days array
                 val arr = JSONArray(trimmed)
-                prefs.edit().putString(KEY_DAYS, arr.toString()).apply()
+                prefs.edit().putString(daysKey, arr.toString()).apply()
             }
         } catch (e: Exception) {
             e.printStackTrace()
