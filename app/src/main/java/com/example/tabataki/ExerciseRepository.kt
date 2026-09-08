@@ -6,10 +6,6 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
     val allExercises: Flow<List<Exercise>> = exerciseDao.getAllExercises()
 
-    fun getExercisesByCategory(category: String): Flow<List<Exercise>> {
-        return exerciseDao.getExercisesByCategory(category)
-    }
-
     suspend fun insert(exercise: Exercise) {
         exerciseDao.insertExercise(exercise)
     }
