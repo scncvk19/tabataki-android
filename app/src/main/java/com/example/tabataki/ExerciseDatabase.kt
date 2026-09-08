@@ -19,15 +19,9 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercises")
     fun getAllExercises(): Flow<List<Exercise>>
 
-    @Query("SELECT * FROM exercises WHERE category = :category")
-    fun getExercisesByCategory(category: String): Flow<List<Exercise>>
-    
-    @Query("SELECT * FROM exercises WHERE id = :id")
-    suspend fun getExerciseById(id: Int): Exercise?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercises(exercises: List<Exercise>)
-    
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercise(exercise: Exercise)
 
@@ -56,8 +50,8 @@ abstract class TabatakiDatabase : RoomDatabase() {
                     TabatakiDatabase::class.java,
                     "tabataki_database"
                 )
-                .fallbackToDestructiveMigration()
-                .build()
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
