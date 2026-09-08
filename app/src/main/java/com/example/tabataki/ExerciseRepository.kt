@@ -1,5 +1,6 @@
 package com.example.tabataki
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
 
 class ExerciseRepository(private val exerciseDao: ExerciseDao) {
@@ -24,7 +25,7 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
     suspend fun populateInitialDataIfNeeded(
         currentCount: Int,
-        context: android.content.Context
+        context: Context
     ) {
         if (currentCount > 0) return
 
