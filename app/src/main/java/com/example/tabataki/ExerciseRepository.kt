@@ -24,8 +24,7 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
     suspend fun populateInitialDataIfNeeded(
         currentCount: Int,
-        context: android.content.Context,
-        lang: Language
+        context: android.content.Context
     ) {
         if (currentCount > 0) return
 
