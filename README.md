@@ -1,5 +1,9 @@
 # Tabataki
 
+**An Android interval timer for Tabata and HIIT workouts, with local training data and no account required.**
+
+[Download latest APK](https://github.com/scncvk19/tabataki-android/releases/latest) · [Issues](https://github.com/scncvk19/tabataki-android/issues) · [OWA Labs](https://owa-labs.vercel.app/)
+
 🇩🇪 [Deutsch](#deutsch)  
 🇬🇧 [English](#english)
 
