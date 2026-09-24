@@ -4,6 +4,8 @@
 
 [Download latest APK](https://github.com/scncvk19/tabataki-android/releases/latest) · [Issues](https://github.com/scncvk19/tabataki-android/issues) · [OWA Labs](https://owa-labs.vercel.app/)
 
+<p><img src="https://owa-labs.vercel.app/images/projects/tabataki/MainScreen.jpeg" alt="Tabataki – Startbildschirm und Intervall-Einstellungen" width="260"> <img src="https://owa-labs.vercel.app/images/projects/tabataki/Tabata%20Timer.jpeg" alt="Tabataki – laufender Tabata-Timer" width="260"></p>
+
 🇩🇪 [Deutsch](#deutsch)  
 🇬🇧 [English](#english)
 
